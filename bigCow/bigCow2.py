@@ -57,8 +57,8 @@ test_transform = transforms.Compose([
     transforms.Normalize(mean=[0.5,0.5,0.5], std=[0.5,0.5,0.5])#像素缩放在0-1之间
 ])
 
-train_dataset = NSCHOOLDataset('Ndataset/train',transform=train_transform)
-test_dataset = NSCHOOLDataset('Ndataset/test',transform=test_transform)
+train_dataset = NSCHOOLDataset('../Ndataset/train',transform=train_transform)
+test_dataset = NSCHOOLDataset('../Ndataset/test',transform=test_transform)
 
 batch_size = 1
 

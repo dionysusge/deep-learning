@@ -58,3 +58,23 @@ print(corr2d(X.T, K))
 conv2d = nn.Conv2d(1, 1, kernel_size=(1, 2), bias=False)
 
 # 用四维输入输出格式（批量大小、通道、高度、宽度）
+X = X.reshape((1, 1, 6, 8))
+Y = Y.reshape((1, 1, 6, 7))
+lr = 3e-2
+
+# 迭代100次，误差基本降到0
+for i in range(100):
+    Y_hat = conv2d(X)
+    loss = (Y_hat - Y) ** 2
+    print(Y_hat)
+    print(Y)
+    conv2d.zero_grad()
+    loss.sum().backward()
+
+    # 迭代卷积核
+    conv2d.weight.data[:] -= lr * conv2d.weight.grad
+    if (i + 1) % 50 == 0:
+        print(f"epoch {i+1}, loss {loss.sum():.3f}")
+
+# 感受野
+# 如果卷积核的大小2*2，那么第一层的感受野为4，第二层输出时，感受野为9，第n层应该为2^n+1
